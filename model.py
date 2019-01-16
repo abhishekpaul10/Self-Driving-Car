@@ -15,11 +15,11 @@ def load_data(args):
 
     data_df = pd.read_csv(os.path.join(os.getcwd(), 'driving_log.csv'), names=['center', 'left', 'right', 'steering', 'throttle', 'reverse', 'speed'])
 
-    X = data_df[['center', 'left', 'right']].values
+    x = data_df[['center', 'left', 'right']].values
     y = data_df['steering'].values
-    X_train, X_valid, y_train, y_valid = train_test_split(X, y, test_size=args.test_size, random_state=0)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=args.test_size, random_state=0)
 
-    return X_train, X_valid, y_train, y_valid
+    return x_train, x_test, y_train, y_test
 
 
 def build_model(args):
@@ -67,8 +67,8 @@ def s2b(s):
 
 def main():
 
-    parser = argparse.ArgumentParser(description='Behavioral Cloning Training Program')
-    parser.add_argument('-d', help='data directory',        dest='data_dir',          type=str,   default='C:/Projects/ML/SDC')
+    parser = argparse.ArgumentParser(description='Self driving car program')
+    parser.add_argument('-d', help='data directory',        dest='data_dir',          type=str,   default='data')
     parser.add_argument('-t', help='test size fraction',    dest='test_size',         type=float, default=0.2)
     parser.add_argument('-k', help='drop out probability',  dest='keep_prob',         type=float, default=0.5)
     parser.add_argument('-n', help='number of epochs',      dest='nb_epoch',          type=int,   default=10)
